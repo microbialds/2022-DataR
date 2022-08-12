@@ -30,6 +30,14 @@ website:
           contents:
             - text: "1: Introducción a R"
               file: clases/01-intro.qmd
+              
+  page-footer:
+    left: |
+      Curso desarrollado por Juan A. Ugalde, 2022
+      
+    right: |
+      Desarrollado en {{< fa brands r-project >}} y [Quarto](https://quarto.org)<br>
+      [Código disponible en {{< fa brands github >}} Github](https://github.com/microbialds/2022-DataR)
 
 format:
   html:
