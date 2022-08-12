@@ -1,0 +1,31 @@
+project:
+  type: website
+
+website:
+  title: "DataViz 2022"
+  favicon: "/files/favicon-48.png"
+  site-url: https://microbialds.github.io/2022_DBio_Data/
+  repo-url: https://github.com/microbialds/2022_DBio_Data
+  navbar:
+    pinned: true
+    background: "#54AFBC"
+    right:
+      - syllabus.qmd
+      - text: "Clases"
+        file: clases/index.qmd
+      - text: "Tareas"
+        file: tareas/index.qmd
+
+format:
+  html:
+    theme:
+      - litera
+      - html/custom.scss
+    toc: true
+    highlight-style: monokai
+
+editor: visual
+
+execute:
+  freeze: auto
+

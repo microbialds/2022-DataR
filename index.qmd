@@ -1,0 +1,16 @@
+---
+title: "Análisis y Visualización de Datos, 2022"
+subtitle: "Introducción al análisis y visualización de datos usando R, Tidyverse y Quarto"
+details: |
+ DBIOI606 • Segundo Semestre, 2022<br>Doctorado en Bioinformática y Biología Integrativa<br>CBIB, Universidad Andres Bello
+
+sidebar: false
+toc: false
+page-layout: full
+format:
+  html:
+    template-partials:
+    - html/home/title-block.html
+---
+
+Bienvenida/os al curso de análisis y visualuización de datos.
