@@ -18,6 +18,6 @@
     "href": "index.html",
     "title": "DataViz 2022",
     "section": "",
-    "text": "Bienvenida/os al curso de análisis y visualuización de datos."
+    "text": "Bienvenid@s al curso de análisis y visualización de datos usando R, Tidyverse y Quarto.\nLibrerias a utilizar\n\ninstall.packages(\"tidyverse\")"
   }
 ]
