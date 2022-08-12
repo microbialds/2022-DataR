@@ -11,6 +11,14 @@ format:
   html:
     template-partials:
     - html/home/title-block.html
+execute:
+    eval: false
 ---
 
 Bienvenid\@s al curso de análisis y visualización de datos usando R, Tidyverse y Quarto.
+
+Librerias a utilizar
+
+```{r}
+install.packages("tidyverse")
+```

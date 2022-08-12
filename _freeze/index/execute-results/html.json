@@ -1,0 +1,14 @@
+{
+  "hash": "70973be9f51eea2fa1b6a9a932fc8198",
+  "result": {
+    "markdown": "---\ntitle: \"Análisis y Visualización de Datos, 2022\"\nsubtitle: \"Introducción al análisis y visualización de datos usando R, Tidyverse y Quarto\"\ndetails: |\n DBIOI606 • Segundo Semestre, 2022<br>Doctorado en Bioinformática y Biología Integrativa<br>CBIB, Universidad Andres Bello\n\nsidebar: false\ntoc: false\npage-layout: full\nformat:\n  html:\n    template-partials:\n    - html/home/title-block.html\nexecute:\n    eval: false\n---\n\n\nBienvenid\\@s al curso de análisis y visualización de datos usando R, Tidyverse y Quarto.\n\nLibrerias a utilizar\n\n\n::: {.cell}\n\n```{.r .cell-code}\ninstall.packages(\"tidyverse\")\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
