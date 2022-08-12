@@ -9,7 +9,7 @@
   {
     "objectID": "clases/index.html",
     "href": "clases/index.html",
-    "title": "Pre-requisitos",
+    "title": "Preparandonos para el curso",
     "section": "",
     "text": "En este curso vamos a utilizar principalmente R y RStudio para nuestras clases. Si ya lo tienen instalado, mi recomendación es que actualicen a la última versión de RStudio, ya que además viene con Quarto (la otra herramientas que vamos a utilizar).\nNota para usuarios de MacOS\nAntes de instalar R, la recomendación es instalar primero Xcode y XQuartz.\n\n\nR se puede descargar desde la pagina del Comprehensive R Archive Network o CRAN. Desde ese lugar se puede descargar la version de R e instalar según su sistema operativo.\n\n\n\nEn la página de descarga de RStudio, elegir la versión según el sistema operativo que esten utilizando.\n\n\nTanto R como RStudio tiene paginas web en donde se pueden encontrar respuestas a algunas preguntas. En el caso de R estan “Frequently Asked Questions”(FAQ) de R, o para Windows R for Windows FAQ.\nOtra fuente de información son paginas web y foros como Stack Overflow RStudio community. Sin embargo, lo más probable es que tus dudas ya se encuentren resueltas en la web, asi que primero haz una búsqueda en Google usando palabras clave o copia y pega en el buscador el mensaje de error que te aparezca en la consola de R. Consejo: haz tus búsquedas y consultas en inglés, tendrás acceso a más y mejor información."
   },
