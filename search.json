@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "clases/01-intro.html",
+    "href": "clases/01-intro.html",
+    "title": "DataViz 2022",
+    "section": "",
+    "text": "Intro!"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -11,13 +18,13 @@
     "href": "syllabus.html",
     "title": "Syllabus",
     "section": "",
-    "text": "1 + 1\n\n[1] 2"
+    "text": "Temas que veremos en este curso:"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "DataViz 2022",
     "section": "",
-    "text": "Bienvenid@s al curso de análisis y visualización de datos usando R, Tidyverse y Quarto.\nLibrerias a utilizar\n\ninstall.packages(\"tidyverse\")"
+    "text": "Bienvenid@s al curso de análisis y visualización de datos usando R, Tidyverse y Quarto.\nEn la parte superior derecha de esta página encontraran el link al material de las clases y las tareas que iremos trabajando cada semana.\nOJO Antes de nuestra primera clase el próximo Martes 16, es necesario que traigan instalado en sus computadores R, Rstudio y las librerias que vamos a utilizar. Mas información la pueden encontrar aqui, en la sección de pre-requisitos.\n\nProfesor\n\n   Juan A. Ugalde\n   juan.ugalde@unab.cl\n\n\n\nDetalles del curso\n\n   Martes, XX a XX\n   Sala de seminarios CBIB"
   }
 ]
