@@ -2,8 +2,4 @@
 title: "Syllabus"
 ---
 
-About this site
-
-```{r}
-1 + 1
-```
+Temas que veremos en este curso:

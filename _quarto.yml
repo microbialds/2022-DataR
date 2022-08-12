@@ -15,6 +15,21 @@ website:
         file: clases/index.qmd
       - text: "Tareas"
         file: tareas/index.qmd
+        
+        
+  sidebar:
+    - title: "Clases"
+      style: "docked"
+      search: false
+      background: dark
+      contents:
+        - section: "Introducción y preparación antes del curso"
+          contents:
+            - clases/index.qmd
+        - section: "Contenido del curso"
+          contents:
+            - text: "1: Introducción a R"
+              file: clases/01-intro.qmd
 
 format:
   html:
