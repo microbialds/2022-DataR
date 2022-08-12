@@ -15,10 +15,20 @@ execute:
     eval: false
 ---
 
-Bienvenid\@s al curso de análisis y visualización de datos usando R, Tidyverse y Quarto.
+Bienvenid\@s al curso de análisis y visualización de datos usando R, Tidyverse y Quarto. 
 
-Librerias a utilizar
+En la parte superior derecha de esta página encontraran el link al material de las clases y las tareas que iremos trabajando cada semana. 
 
-```{r}
-install.packages("tidyverse")
-```
+**OJO**
+Antes de nuestra primera clase el próximo Martes 16, es necesario que traigan instalado en sus computadores R, Rstudio y las librerias que vamos a utilizar. Mas información la pueden encontrar [aqui](clases/index.qmd), en la sección de pre-requisitos.
+
+### Profesor
+
+- {{< fa user >}} &nbsp; Juan A. Ugalde
+- {{< fa envelope >}} &nbsp; <a href="mailto:juan.ugalde@unab.cl">juan.ugalde@unab.cl</a>
+
+### Detalles del curso
+
+- {{< fa calendar >}} &nbsp; Martes, XX a XX
+- {{< fa location-dot >}} &nbsp; Sala de seminarios CBIB
+

@@ -10,7 +10,7 @@ website:
     pinned: true
     background: "#54AFBC"
     right:
-      - syllabus.qmd
+#     - syllabus.qmd
       - text: "Clases"
         file: clases/index.qmd
       - text: "Tareas"
