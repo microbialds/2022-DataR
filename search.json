@@ -1,17 +1,38 @@
 [
   {
-    "objectID": "clases/01-intro.html",
-    "href": "clases/01-intro.html",
-    "title": "DataViz 2022",
-    "section": "",
-    "text": "Intro!"
-  },
-  {
     "objectID": "clases/index.html",
     "href": "clases/index.html",
     "title": "Preparandonos para el curso",
     "section": "",
     "text": "En este curso vamos a utilizar principalmente R y RStudio para nuestras clases. Si ya lo tienen instalado, mi recomendación es que actualicen a la última versión de RStudio, ya que además viene con Quarto (la otra herramientas que vamos a utilizar).\nNota para usuarios de MacOS\nAntes de instalar R, la recomendación es instalar primero Xcode y XQuartz.\n\n\nR se puede descargar desde la pagina del Comprehensive R Archive Network o CRAN. Desde ese lugar se puede descargar la version de R e instalar según su sistema operativo.\n\n\n\nEn la página de descarga de RStudio, elegir la versión según el sistema operativo que esten utilizando.\n\n\nTanto R como RStudio tiene paginas web en donde se pueden encontrar respuestas a algunas preguntas. En el caso de R estan “Frequently Asked Questions”(FAQ) de R, o para Windows R for Windows FAQ.\nOtra fuente de información son paginas web y foros como Stack Overflow RStudio community. Sin embargo, lo más probable es que tus dudas ya se encuentren resueltas en la web, asi que primero haz una búsqueda en Google usando palabras clave o copia y pega en el buscador el mensaje de error que te aparezca en la consola de R. Consejo: haz tus búsquedas y consultas en inglés, tendrás acceso a más y mejor información."
+  },
+  {
+    "objectID": "clases/01-intro.html",
+    "href": "clases/01-intro.html",
+    "title": "Introducción a R",
+    "section": "",
+    "text": "En esta primera clase, vamos a explorar brevemente el lenguaje de programación R, conocer algunas de sus características y generar una visualización a partir de una tabla!"
+  },
+  {
+    "objectID": "clases/01-intro.html#ejecutando-comandos-en-r",
+    "href": "clases/01-intro.html#ejecutando-comandos-en-r",
+    "title": "Introducción a R",
+    "section": "Ejecutando comandos en R",
+    "text": "Ejecutando comandos en R\nDesde la consola, es posible ejecutar comandos directamente. Por ejemplo podemos hacer operaciones aritmeticas\n\n1 + 1\n\n[1] 2\n\n\nTambien podemos generar números de manera secuencial\n\n1:10\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\n\nTodo esto lo estuvimos haciendo desde la consola, pero no es la manera mas habitual de trabajar, ni tampoco la mejor práctica. Lo ideal es trabajar todo desde un script (básicamente un archivo de texto), el cual nos permite documentar el trabajo realizado.\nPara crear un nuevo script, podemos ir al boton verde de la parte superior izquierda, y elegir la opción R script. Una vez que creamos un script, podemos ir dejando en ese documento los comandos que vamos a ir utilizando."
+  },
+  {
+    "objectID": "clases/01-intro.html#elementos-básicos-en-r",
+    "href": "clases/01-intro.html#elementos-básicos-en-r",
+    "title": "Introducción a R",
+    "section": "Elementos básicos en R",
+    "text": "Elementos básicos en R\nEn R encontramos 4 tipos de datos atómicos con los cuales podemos crear vectores:\n\nnumérico: enteros y reales\n12\n12.5\ncaracteres\n\"hola, soy un texto!\"\nlógicos\nTRUE\nFALSE\ncomplejos\n1 + 3i\n\nTambién existen dos tipos especiales que se pueden mezclar con los anteriores, NULL para cuando no existe un valor (por ejemplo, para declarar una variable sin asignar un valor) y NA (not assigned) cuando no hay una observación en una tabla."
+  },
+  {
+    "objectID": "clases/01-intro.html#lecturas-recomendadas",
+    "href": "clases/01-intro.html#lecturas-recomendadas",
+    "title": "Introducción a R",
+    "section": "Lecturas recomendadas",
+    "text": "Lecturas recomendadas\n\nBest practices for Writing R Code: link"
   },
   {
     "objectID": "about.html",
