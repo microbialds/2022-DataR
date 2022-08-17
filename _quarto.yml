@@ -45,7 +45,7 @@ format:
       - litera
       - html/custom.scss
     toc: true
-    highlight-style: monokai
+    highlight-style: arrow
 
 editor: visual
 

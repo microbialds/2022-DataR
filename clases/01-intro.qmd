@@ -1,1 +1,61 @@
-Intro!
+---
+title: "Introducción a R"
+---
+
+En esta primera clase, vamos a explorar brevemente el lenguaje de programación `R`, conocer algunas de sus características y generar una visualización a partir de una tabla! 
+
+## Ejecutando comandos en R
+
+Desde la consola, es posible ejecutar comandos directamente. Por ejemplo podemos hacer operaciones aritmeticas
+
+```{r}
+1 + 1
+```
+
+Tambien podemos generar números de manera secuencial
+
+```{r}
+1:10
+```
+
+Todo esto lo estuvimos haciendo desde la consola, pero no es la manera mas habitual de trabajar, ni tampoco la mejor práctica. Lo ideal es trabajar todo desde un script (básicamente un archivo de texto), el cual nos permite documentar el trabajo realizado.
+
+Para crear un nuevo script, podemos ir al boton verde de la parte superior izquierda, y elegir la opción `R script`. Una vez que creamos un script, podemos ir dejando en ese documento los comandos que vamos a ir utilizando.
+
+## Elementos básicos en R
+
+En R encontramos 4 tipos de datos atómicos con los cuales podemos crear vectores:
+
+- numérico: enteros y reales
+
+    ```
+    12
+    12.5
+    ```
+- caracteres
+
+    ```
+    "hola, soy un texto!"
+    ```
+- lógicos
+
+    ```
+    TRUE
+    FALSE
+    ```
+- complejos
+
+    ```
+    1 + 3i
+    ```
+    
+También existen dos tipos especiales que se pueden mezclar con los anteriores, `NULL` para cuando no existe un valor (por ejemplo, para declarar una variable sin asignar un valor) y `NA` (not assigned) cuando no hay una observación en una tabla.
+
+
+
+
+
+
+## Lecturas recomendadas
+
+1. Best practices for Writing R Code: [link](https://swcarpentry.github.io/r-novice-inflammation/06-best-practices-R/)
