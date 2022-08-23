@@ -25,7 +25,21 @@
     "href": "clases/01-intro.html#elementos-básicos-en-r",
     "title": "Introducción a R",
     "section": "Elementos básicos en R",
-    "text": "Elementos básicos en R\nEn R encontramos 4 tipos de datos atómicos con los cuales podemos crear vectores:\n\nnumérico: enteros y reales\n12\n12.5\ncaracteres\n\"hola, soy un texto!\"\nlógicos\nTRUE\nFALSE\ncomplejos\n1 + 3i\n\nTambién existen dos tipos especiales que se pueden mezclar con los anteriores, NULL para cuando no existe un valor (por ejemplo, para declarar una variable sin asignar un valor) y NA (not assigned) cuando no hay una observación en una tabla."
+    "text": "Elementos básicos en R\nEn R encontramos 4 tipos de datos atómicos con los cuales podemos crear vectores:\n\nnumérico: enteros y reales\n12\n12.5\ncaracteres\n\"hola, soy un texto!\"\nlógicos\nTRUE\nFALSE\ncomplejos\n1 + 3i\n\nTambién existen dos tipos especiales que se pueden mezclar con los anteriores, NULL para cuando no existe un valor (por ejemplo, para declarar una variable sin asignar un valor) y NA (not assigned) cuando no hay una observación en una tabla.\nEl uso de NA es importante, porque permite mezclarse con otros tipos. Cualquier calculo que involucre NA va a resultar en NA. Por ejemplo:\n\nNA + 1\n\n[1] NA\n\n\nEl resultado es NA, porque R no sabe cual es la respuesta. Esto es igual si queremos identificar el número máximo en una lista de números:\n\nmax(10, 30, 5, NA)\n\n[1] NA\n\n\nPero algunas funciones, pueden ignorar ese NA con el parametro adecuado. Por ejemplo:\n\nmax(10, 30, 5, NA, na.rm=TRUE)\n\n[1] 30"
+  },
+  {
+    "objectID": "clases/01-intro.html#asignación-de-variables",
+    "href": "clases/01-intro.html#asignación-de-variables",
+    "title": "Introducción a R",
+    "section": "Asignación de variables",
+    "text": "Asignación de variables\nLos resultados de las operaciones, calculos, etc, pueden ser guardados en variables para ser utilizados. Esto se hace con el operador <-. También es posible utilizar el operado =, pero en general se utiliza <-. Por ejemplo:\n\nejemplo <- 120\n\nY ahora podemos llamar la variable\n\nejemplo\n\n[1] 120\n\n\nEs posible hacer operaciones directamente con las variables:\n\nx <- 100\ny <- 123\n\nx + y\n\n[1] 223"
+  },
+  {
+    "objectID": "clases/01-intro.html#vectores",
+    "href": "clases/01-intro.html#vectores",
+    "title": "Introducción a R",
+    "section": "Vectores",
+    "text": "Vectores\nUn vector es una coleccion ordenada de elementos, que pueden ser del mismo tipo o combinados. La función que se utiliza para generar los vectores es c. Por ejemplo:\n\nx <- c(1,5,10,14,20)\nx\n\n[1]  1  5 10 14 20\n\n\nTambién es posible crear un vector de caracteres\n\nnombres <- c(\"Francisco\", \"Andres\", \"Jorge\")\nnombres\n\n[1] \"Francisco\" \"Andres\"    \"Jorge\"    \n\n\ny combinar diferentes tipos:\n\ncombinacion <- c(\"Andres\", 50, 1e10)\ncombinacion\n\n[1] \"Andres\" \"50\"     \"1e+10\" \n\n\nPodemos acceder a los elementos individuales de un vector usando [] y el número del elemento. Es importante recordar que la númeracion parte desde 1 (versus Python, que parte desde 0).\n\nnombres[1]\n\n[1] \"Francisco\"\n\nnombres[3]\n\n[1] \"Jorge\"\n\n\nTambien podemos asignar nombres a los elementos de un vector. Por ejemplo:\n\nnumeros <- c(1,2,3)\nlabel <- c(\"uno\", \"dos\", \"tres\")\n\nnames(numeros) <- label\n\nnumeros\n\n uno  dos tres \n   1    2    3 \n\n\nY podemos acceder por nombre:\n\nnumeros[\"uno\"]\n\nuno \n  1 \n\n\nincluso usando un vector\n\nnumeros[c(\"uno\", \"tres\")]\n\n uno tres \n   1    3"
   },
   {
     "objectID": "clases/01-intro.html#lecturas-recomendadas",
