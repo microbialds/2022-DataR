@@ -2,7 +2,7 @@
 title: "Introducción a R"
 ---
 
-En esta primera clase, vamos a explorar brevemente el lenguaje de programación `R`, conocer algunas de sus características y generar una visualización a partir de una tabla! 
+En esta primera clase, vamos a explorar brevemente el lenguaje de programación `R`, conocer algunas de sus características y generar una visualización a partir de una tabla!
 
 ## Ejecutando comandos en R
 
@@ -26,36 +26,120 @@ Para crear un nuevo script, podemos ir al boton verde de la parte superior izqui
 
 En R encontramos 4 tipos de datos atómicos con los cuales podemos crear vectores:
 
-- numérico: enteros y reales
+-   numérico: enteros y reales
 
-    ```
-    12
-    12.5
-    ```
-- caracteres
+        12
+        12.5
 
-    ```
-    "hola, soy un texto!"
-    ```
-- lógicos
+-   caracteres
 
-    ```
-    TRUE
-    FALSE
-    ```
-- complejos
+        "hola, soy un texto!"
 
-    ```
-    1 + 3i
-    ```
-    
+-   lógicos
+
+        TRUE
+        FALSE
+
+-   complejos
+
+        1 + 3i
+
 También existen dos tipos especiales que se pueden mezclar con los anteriores, `NULL` para cuando no existe un valor (por ejemplo, para declarar una variable sin asignar un valor) y `NA` (not assigned) cuando no hay una observación en una tabla.
 
+El uso de `NA` es importante, porque permite mezclarse con otros tipos. Cualquier calculo que involucre `NA` va a resultar en `NA`. Por ejemplo:
 
+```{r}
+NA + 1
+```
+
+El resultado es `NA`, porque R no sabe cual es la respuesta. Esto es igual si queremos identificar el número máximo en una lista de números:
+
+```{r}
+max(10, 30, 5, NA)
+```
+
+Pero algunas funciones, pueden ignorar ese `NA` con el parametro adecuado. Por ejemplo:
+
+```{r}
+max(10, 30, 5, NA, na.rm=TRUE)
+```
+## Asignación de variables
+
+Los resultados de las operaciones, calculos, etc, pueden ser guardados en variables para ser utilizados. Esto se hace con el operador `<-`. También es posible utilizar el operado `=`, pero en general se utiliza `<-`. Por ejemplo:
+
+```{r}
+ejemplo <- 120
+```
+
+Y ahora podemos llamar la variable
+
+```{r}
+ejemplo
+```
+
+Es posible hacer operaciones directamente con las variables:
+
+```{r}
+x <- 100
+y <- 123
+
+x + y
+```
+
+## Vectores
+
+Un vector es una coleccion ordenada de elementos, que pueden ser del mismo tipo o combinados. La función que se utiliza para generar los vectores es `c`. Por ejemplo:
+
+```{r}
+x <- c(1,5,10,14,20)
+x
+```
+También es posible crear un vector de caracteres
+
+```{r}
+nombres <- c("Francisco", "Andres", "Jorge")
+nombres
+```
+
+y combinar diferentes tipos:
+
+```{r}
+combinacion <- c("Andres", 50, 1e10)
+combinacion
+```
+
+Podemos acceder a los elementos individuales de un vector usando [] y el número del elemento. Es importante recordar que la númeracion parte desde 1 (versus Python, que parte desde 0).
+
+```{r}
+nombres[1]
+nombres[3]
+```
+
+Tambien podemos asignar nombres a los elementos de un vector. Por ejemplo:
+
+```{r}
+numeros <- c(1,2,3)
+label <- c("uno", "dos", "tres")
+
+names(numeros) <- label
+
+numeros
+```
+
+Y podemos acceder por nombre:
+
+```{r}
+numeros["uno"]
+```
+incluso usando un vector
+
+```{r}
+numeros[c("uno", "tres")]
+```
 
 
 
 
 ## Lecturas recomendadas
 
-1. Best practices for Writing R Code: [link](https://swcarpentry.github.io/r-novice-inflammation/06-best-practices-R/)
+1.  Best practices for Writing R Code: [link](https://swcarpentry.github.io/r-novice-inflammation/06-best-practices-R/)
