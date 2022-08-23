@@ -63,6 +63,7 @@ Pero algunas funciones, pueden ignorar ese `NA` con el parametro adecuado. Por e
 ```{r}
 max(10, 30, 5, NA, na.rm=TRUE)
 ```
+
 ## Asignación de variables
 
 Los resultados de las operaciones, calculos, etc, pueden ser guardados en variables para ser utilizados. Esto se hace con el operador `<-`. También es posible utilizar el operado `=`, pero en general se utiliza `<-`. Por ejemplo:
@@ -94,6 +95,7 @@ Un vector es una coleccion ordenada de elementos, que pueden ser del mismo tipo 
 x <- c(1,5,10,14,20)
 x
 ```
+
 También es posible crear un vector de caracteres
 
 ```{r}
@@ -108,7 +110,7 @@ combinacion <- c("Andres", 50, 1e10)
 combinacion
 ```
 
-Podemos acceder a los elementos individuales de un vector usando [] y el número del elemento. Es importante recordar que la númeracion parte desde 1 (versus Python, que parte desde 0).
+Podemos acceder a los elementos individuales de un vector usando \[\] y el número del elemento. Es importante recordar que la númeracion parte desde 1 (versus Python, que parte desde 0).
 
 ```{r}
 nombres[1]
@@ -131,14 +133,12 @@ Y podemos acceder por nombre:
 ```{r}
 numeros["uno"]
 ```
+
 incluso usando un vector
 
 ```{r}
 numeros[c("uno", "tres")]
 ```
-
-
-
 
 ## Lecturas recomendadas
 
