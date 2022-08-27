@@ -4,6 +4,8 @@ title: "Introducción a R"
 
 En esta primera clase, vamos a explorar brevemente el lenguaje de programación `R`, conocer algunas de sus características y generar una visualización a partir de una tabla!
 
+# Introducción 
+
 ## Ejecutando comandos en R
 
 Desde la consola, es posible ejecutar comandos directamente. Por ejemplo podemos hacer operaciones aritmeticas
@@ -140,6 +142,154 @@ incluso usando un vector
 numeros[c("uno", "tres")]
 ```
 
-## Lecturas recomendadas
+# Instalar librerias
+
+Aún cuando R nos permite hacer muchos análisis sin tener que instalar librerias, existe una gran colección de paquetes que nos permiten extender las capacidades de R de gran manera para hacer análisis de datos, modelamiento, visualización, etc.
+
+Información sobre paquetes de Rstudio se pueden ver [aqui](https://www.rstudio.com/products/rpackages/) y el repositorio central de paquetes, CRAN, con una lista completa de paquetes [aqui](https://cran.r-project.org/web/packages/available_packages_by_name.html).
+
+Para instalar una libreria disponible en CRAN se puede hacer de la siguiente manera. En este ejemplo vamos a instalar dos paquetes que vamos a utilizar en la siguiente sección, asi que hay que ejecutar este comando.
+
+```{r}
+#| eval: false
+# Instalar el paquete tidyverse
+install.packages("tidyverse")
+
+# Instalar el paquete de datos que vamos a visualizar
+install.packages("palmerpenguins")
+```
+
+Esto va a instalar en nuestro computador o maquina en la que estemos trabajando, la libreria. Para poder utilizar esta libreria en nuestro script o sesión de análisis, es necesario importarla. Esto se hace de la siguiente manera:
+
+```{r}
+#| message: false
+#| eval: false
+library(tidyverse)
+library(palmerpenguins)
+```
+
+# Breve introducción a visualización
+
+En las próximas clases vamos a mirar mas en detalle como podemos visualizar datos, pero para entusiasmar, vamos a hacer una pequeña introducción.
+
+Primero que nada tenemos que llamar a las librerias a utilizar:
+
+```{r}
+#| message: false
+library(tidyverse)
+library(palmerpenguins)
+```
+
+Esto va a llamar a la libreria _tidyverse_ y un paquete de datos llamado _palmerpenguins_ el cual contiene datos que vamos a utilizar para visualizar.
+
+## Exploración inicial de los datos
+
+Vamos a llamar a una tabla llamada _penguins_ y asignarla a una variable.
+
+```{r}
+tabla_pinguinos <- penguins
+```
+
+y podemos visualizar la tabla
+
+```{r}
+tabla_pinguinos
+```
+
+## Construir un gráfico
+
+El paquete que vamos a utilizar para visualizar se llama _ggplot_, el cual es parte de _tidyverse_. Así que ya esta instalado cuando hicimos la llamada a la libreria _tidyverse_ al inicio.
+
+### Gráfico inicial
+Primero vamos a construir un gráfico en el cual vamos a visualizar el largo de la aleta versus el largo del pico del pinguino.
+
+```{r}
+ggplot(data = tabla_pinguinos,
+       aes(x=flipper_length_mm, 
+           y=bill_length_mm)
+       ) +
+geom_point()
+
+```
+
+En este comando lo que estamos haciendo es:
+
+- definir los datos a usar en `data = tabla_pinguinos`
+- definir la estetica (aesthetics) del grafico, en este caso el eje X y el eje Y, que son columnas de la tabla: `aes(x=flipper_length_mm, y=bill_length_mm)` 
+- definir que queremos hacer con los datos. En este caso, dibujar puntos: `geom_point()`
+
+### Agregar color y formas
+
+Como podemos diferencias variables dentro de nuestras columnas. Agregando en la opciones de estética del gráfico dos nuevas variables: `color=species, shape=sex`. En este caso, asignamos color en base a los elementos distintos de la columna _species_ y forma de los puntos en base a la columna _sex_. Así, el código queda:
+
+```{r}
+ggplot(data = tabla_pinguinos,
+       aes(x=flipper_length_mm, 
+           y=bill_length_mm,
+           color = species,
+           shape = sex)
+       ) +
+geom_point()
+
+```
+
+### Cambiar color y diseño
+
+Ya tenemos un gráfico inicial que muestra la comparación que nos interesa y ahora podemos editar para que se vea un poco mejor y no con los colores y diseño por defecto de R. Esto lo podemos hacer modificando el _theme_ del gráfico. Mas adelante vamos a ver el detalle de como modificar diferentes componentes, pero por ahora podemos hacer un cambio general agregando el comando `theme_minimal()`.
+
+En los colores, también los podemos modificar a gusto. Por el momento vamos a utilizar una paleta de colores diferente con el comando `scale_color_brewer(type = "qual")`. En este caso le pasamos como parametro al comando _scale_color_brewer_ la opción type = "qual". Con esto definimos que la escala de colores es cualitativa (versus una escala cuantitativa).
+
+Así el comando nos queda ahora como:
+
+```{r}
+ggplot(data = tabla_pinguinos,
+       aes(x=flipper_length_mm, 
+           y=bill_length_mm,
+           color = species,
+           shape = sex)
+       ) +
+geom_point() +
+theme_minimal() +
+scale_color_brewer(type="qual")
+        
+
+```
+
+### Agregar leyendas y cambiar texto
+
+Finalmente, vamos a cambiar el texto que describe los ejes X e Y, y agregar algo de texto informativo.
+
+Esto lo vamos a hacer agregando el comando `labs` y definiendo las diferentes opciones:
+
+```
+labs(x="Flipper length (mm)",
+     y="Bill length (mm)",
+     title = "Penguin data comparison",
+     subtitle = "Comparison between flipper length and bill length in a penguin population",
+     caption = "Data obtained from the package palmerpenguins"
+```
+
+Y podemos agregarlo al gráfico.
+
+```{r}
+ggplot(data = tabla_pinguinos,
+       aes(x=flipper_length_mm, 
+           y=bill_length_mm,
+           color = species,
+           shape = sex)
+       ) +
+geom_point() +
+theme_minimal() +
+scale_color_brewer(type="qual") +
+labs(x="Flipper length (mm)",
+     y="Bill length (mm)",
+     title = "Penguin data comparison",
+     subtitle = "Comparison between flipper length and bill length in a penguin population",
+     caption = "Data obtained from the package palmerpenguins")
+```
+
+
+# Lecturas recomendadas
 
 1.  Best practices for Writing R Code: [link](https://swcarpentry.github.io/r-novice-inflammation/06-best-practices-R/)
+2. R for Data Science: [link](https://r4ds.had.co.nz)
