@@ -1,1 +1,1 @@
-Sitemap: https://github.com/microbialds/2022-DataR/sitemap.xml
+Sitemap: https://microbialds.github.io/2022_DBio_Data/sitemap.xml
