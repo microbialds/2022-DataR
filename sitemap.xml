@@ -2,26 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://microbialds.github.io/2022_DBio_Data/clases/index.html</loc>
-    <lastmod>2022-08-27T12:09:24.755Z</lastmod>
+    <lastmod>2022-09-05T04:10:14.232Z</lastmod>
   </url>
   <url>
     <loc>https://microbialds.github.io/2022_DBio_Data/clases/01-intro.html</loc>
-    <lastmod>2022-08-27T12:09:25.891Z</lastmod>
+    <lastmod>2022-09-05T04:10:15.524Z</lastmod>
+  </url>
+  <url>
+    <loc>https://microbialds.github.io/2022_DBio_Data/clases/02-Tidyverse1.html</loc>
+    <lastmod>2022-09-05T04:10:16.308Z</lastmod>
   </url>
   <url>
     <loc>https://microbialds.github.io/2022_DBio_Data/about.html</loc>
-    <lastmod>2022-08-27T12:09:26.411Z</lastmod>
+    <lastmod>2022-09-05T04:10:16.924Z</lastmod>
   </url>
   <url>
     <loc>https://microbialds.github.io/2022_DBio_Data/syllabus.html</loc>
-    <lastmod>2022-08-27T12:09:26.723Z</lastmod>
+    <lastmod>2022-09-05T04:10:17.288Z</lastmod>
   </url>
   <url>
     <loc>https://microbialds.github.io/2022_DBio_Data/index.html</loc>
-    <lastmod>2022-08-27T12:09:27.043Z</lastmod>
+    <lastmod>2022-09-05T04:10:17.656Z</lastmod>
   </url>
   <url>
     <loc>https://microbialds.github.io/2022_DBio_Data/tareas/index.html</loc>
-    <lastmod>2022-08-27T12:09:27.331Z</lastmod>
+    <lastmod>2022-09-05T04:10:18.008Z</lastmod>
   </url>
 </urlset>

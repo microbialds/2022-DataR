@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>DataViz 2022 - Workflow de análisis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="..//files/favicon-48.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">DataViz 2022</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../clases/index.html" aria-current="page">Clases</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tareas/index.html">Tareas</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Workflow de análisis</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Introducción y preparación antes del curso</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../clases/index.html" class="sidebar-item-text sidebar-link">Preparandonos para el curso</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Contenido del curso</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../clases/01-intro.html" class="sidebar-item-text sidebar-link">1: Introducción a R</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../clases/02-Tidyverse1.html" class="sidebar-item-text sidebar-link active">2: Introducción a Tidyverse, flujo de trabajo</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción">Introducción</a>
+  <ul class="collapse">
+  <li><a href="#establecer-directorio-de-trabajo" id="toc-establecer-directorio-de-trabajo" class="nav-link" data-scroll-target="#establecer-directorio-de-trabajo">Establecer directorio de trabajo</a></li>
+  <li><a href="#leer-datos-en-diferentes-formatos" id="toc-leer-datos-en-diferentes-formatos" class="nav-link" data-scroll-target="#leer-datos-en-diferentes-formatos">Leer datos en diferentes formatos</a>
+  <ul class="collapse">
+  <li><a href="#importar-un-archivo-separado-por-comas-csv" id="toc-importar-un-archivo-separado-por-comas-csv" class="nav-link" data-scroll-target="#importar-un-archivo-separado-por-comas-csv">Importar un archivo separado por comas (CSV)</a></li>
+  <li><a href="#importar-archivos-con-diferentes-formatos" id="toc-importar-archivos-con-diferentes-formatos" class="nav-link" data-scroll-target="#importar-archivos-con-diferentes-formatos">Importar archivos con diferentes formatos</a></li>
+  </ul></li>
+  <li><a href="#manipulación-de-tablas" id="toc-manipulación-de-tablas" class="nav-link" data-scroll-target="#manipulación-de-tablas">Manipulación de tablas</a>
+  <ul class="collapse">
+  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select"><code>select</code></a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><code>filter</code></a></li>
+  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate"><code>mutate</code></a></li>
+  <li><a href="#combinando-multiples-funciones" id="toc-combinando-multiples-funciones" class="nav-link" data-scroll-target="#combinando-multiples-funciones">Combinando multiples funciones</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Workflow de análisis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="introducción" class="level1">
+<h1>Introducción</h1>
+<p>En esta segunda clase, vamos a empezar el análisis con Tidyverse. Primero vamos a recordar como crear y establecer los directorios de trabajo. Luego vamos a explorar diferentes formas de leer datos desde diferentes tipos de tablas.</p>
+<section id="establecer-directorio-de-trabajo" class="level2">
+<h2 class="anchored" data-anchor-id="establecer-directorio-de-trabajo">Establecer directorio de trabajo</h2>
+<p>Como vimos durante la clase, necesitamos que R sepa en que directorio vamos a trabajar. Por ejemplo, si creamos un nuevo script, para saber en donde va a quedar guardado y además el directorio de trabajo, podemos ocupar el comando <code>getwd()</code>. Esto nos entrega el directrio de trabajo. Por ejemplo en mi caso es:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/jugalde/websites/courses/2022-DataR/clases"</code></pre>
+</div>
+</div>
+<p>Para poder establecer el directorio de trabajo lo podemos hacer desde la interfaz de RStudio como vimos durante la clase, o tambien ocupando el comando <code>setwd()</code>. Por ejemplo:</p>
+<pre><code>setwd("/directorio/de/trabajo/")</code></pre>
+<p>Mas detalles los iremos viendo durtante la clase</p>
+</section>
+<section id="leer-datos-en-diferentes-formatos" class="level2">
+<h2 class="anchored" data-anchor-id="leer-datos-en-diferentes-formatos">Leer datos en diferentes formatos</h2>
+<p>En esta sección vamos a ver como leer archivos y algunas operaciones básicas usando la libreria <code>Tidyverse</code>. Recuerda que antes de utilizar esta libreria hay que llamarla en el script o comandos previamente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="importar-un-archivo-separado-por-comas-csv" class="level3">
+<h3 class="anchored" data-anchor-id="importar-un-archivo-separado-por-comas-csv">Importar un archivo separado por comas (CSV)</h3>
+<p>Los archivos CSV son archivos en donde cada columna esta separada por comas. Para poder leer este tipo de archivos, la libreria <code>readr</code> (que es parte del <code>Tidyverse</code>), tiene una función llamada <code>read_csv</code>. Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Este comando va a leer un archivo csv y guardarlo en la variable gapminder</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"datos/gapminder.csv"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>gapminder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<p>En este caso vemos que el archivo fue leido correctamente y consiste en 1704 observaciones en 6 columnas.</p>
+</section>
+<section id="importar-archivos-con-diferentes-formatos" class="level3">
+<h3 class="anchored" data-anchor-id="importar-archivos-con-diferentes-formatos">Importar archivos con diferentes formatos</h3>
+<p>En númerosas ocasiones nos vamos a encontrar con que los archivos que necesitamos leer, no vienen en el formato adecuado. Por ejemplo, si tratamos de leer este archivo con el comando <code>read_csv</code> nos damos cuenta que tenemos problemas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gapminder2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"datos/gapminder_csv2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, see `problems()` for details</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gapminder2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 1
+   `country;continent;year;lifeExp;pop;gdpPercap`       
+   &lt;chr&gt;                                                
+ 1 Afghanistan;Asia;1952;28,80100;   8425333;   779,4453
+ 2 Afghanistan;Asia;1957;30,33200;   9240934;   820,8530
+ 3 Afghanistan;Asia;1962;31,99700;  10267083;   853,1007
+ 4 Afghanistan;Asia;1967;34,02000;  11537966;   836,1971
+ 5 Afghanistan;Asia;1972;36,08800;  13079460;   739,9811
+ 6 Afghanistan;Asia;1977;38,43800;  14880372;   786,1134
+ 7 Afghanistan;Asia;1982;39,85400;  12881816;   978,0114
+ 8 Afghanistan;Asia;1987;40,82200;  13867957;   852,3959
+ 9 Afghanistan;Asia;1992;41,67400;  16317921;   649,3414
+10 Afghanistan;Asia;1997;41,76300;  22227415;   635,3414
+# … with 1,694 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<p>En este caso, vemos que al leer esta tabla, queda en una sola columna. Esto se debe a que la separación de las columnas no es con comas, si no que un caracter diferente (en este caso punto y coma). Para poder leer la tabla, tenemos que ocupar otro comando en donde definimos el tipo de delimitador que separa a las columnas. En este caso ocupamos la función <code>read_delim</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gapminder2_fixed <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"datos/gapminder_csv2.csv"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">";"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>gapminder2_fixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 6
+   country     continent  year lifeExp pop          gdpPercap    
+   &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        
+ 1 Afghanistan Asia       1952 2880100 "   8425333" "   779,4453"
+ 2 Afghanistan Asia       1957 3033200 "   9240934" "   820,8530"
+ 3 Afghanistan Asia       1962 3199700 "  10267083" "   853,1007"
+ 4 Afghanistan Asia       1967 3402000 "  11537966" "   836,1971"
+ 5 Afghanistan Asia       1972 3608800 "  13079460" "   739,9811"
+ 6 Afghanistan Asia       1977 3843800 "  14880372" "   786,1134"
+ 7 Afghanistan Asia       1982 3985400 "  12881816" "   978,0114"
+ 8 Afghanistan Asia       1987 4082200 "  13867957" "   852,3959"
+ 9 Afghanistan Asia       1992 4167400 "  16317921" "   649,3414"
+10 Afghanistan Asia       1997 4176300 "  22227415" "   635,3414"
+# … with 1,694 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<p>En otros casos, el formato de la tabla puede ser el adecuado, pero el archivo mismo incluir información que queremos ignorar al momento de importar los datos en R. Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>gapminder3 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"datos/gapminder_messier.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, see `problems()` for details</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gapminder3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,706 × 1
+   `# Some comment about the data`                  
+   &lt;chr&gt;                                            
+ 1 And maybe a personal note                        
+ 2 country,continent,year,lifeExp,pop,gdpPercap     
+ 3 Afghanistan,Asia,1952,28.801,8425333,779.4453145 
+ 4 Afghanistan,Asia,1957,30.332,9240934,820.8530296 
+ 5 Afghanistan,Asia,1962,31.997,10267083,853.10071  
+ 6 Afghanistan,Asia,1967,34.02,11537966,836.1971382 
+ 7 Afghanistan,Asia,1972,36.088,13079460,739.9811058
+ 8 Afghanistan,Asia,1977,38.438,14880372,786.11336  
+ 9 Afghanistan,Asia,1982,39.854,12881816,978.0114388
+10 Afghanistan,Asia,1987,40.822,13867957,852.3959448
+# … with 1,696 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<p>En este caso, R entrega un mensaje de aviso, porque hay columna que no tienen el formato adecuado. Al ver el resultado, vemos que las dos primeras lineas contienen información como texto, pero no son parte de las columnas. En este caso podemos ignorar esas dos primeras filas al momento de leer el archivo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>gapminder3_fixed <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"datos/gapminder_messier.csv"</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">skip=</span><span class="dv">2</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">","</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>gapminder3_fixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="manipulación-de-tablas" class="level2">
+<h2 class="anchored" data-anchor-id="manipulación-de-tablas">Manipulación de tablas</h2>
+<p>Una vez que tenemos la información en R, podemos ocupar diferentes funciones para explorar estos datos. Vamos usar la tabla gapminder</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>gapminder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<p>Vemos que esta tabla tiene 6 columnas: - country - continent - year - lifeExp - pop - gdpPercap</p>
+<section id="select" class="level3">
+<h3 class="anchored" data-anchor-id="select"><code>select</code></h3>
+<p>Si quisieramos elegir algunas columnas desde la tabla completa, podemos ocupar la función <code>select</code>. En este caso indicamos a la función la fuente de los datos ( <em>gapminder</em> ) y las columnas a elegir (country, year, pop)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(gapminder,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>       country, year, pop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 3
+   country      year      pop
+   &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Afghanistan  1952  8425333
+ 2 Afghanistan  1957  9240934
+ 3 Afghanistan  1962 10267083
+ 4 Afghanistan  1967 11537966
+ 5 Afghanistan  1972 13079460
+ 6 Afghanistan  1977 14880372
+ 7 Afghanistan  1982 12881816
+ 8 Afghanistan  1987 13867957
+ 9 Afghanistan  1992 16317921
+10 Afghanistan  1997 22227415
+# … with 1,694 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<p>También podemos elegir columnas en base a los nombres de estas. Por ejemplo seleccionar todas las columnas que parten con la letra <em>c</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(gapminder, <span class="fu">starts_with</span>(<span class="st">"c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 2
+   country     continent
+   &lt;chr&gt;       &lt;chr&gt;    
+ 1 Afghanistan Asia     
+ 2 Afghanistan Asia     
+ 3 Afghanistan Asia     
+ 4 Afghanistan Asia     
+ 5 Afghanistan Asia     
+ 6 Afghanistan Asia     
+ 7 Afghanistan Asia     
+ 8 Afghanistan Asia     
+ 9 Afghanistan Asia     
+10 Afghanistan Asia     
+# … with 1,694 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="filter" class="level3">
+<h3 class="anchored" data-anchor-id="filter"><code>filter</code></h3>
+<p>Asi como <code>select</code> nos permite seleccionar columnas en base a los nombres, con el comando <code>filter</code> podemos seleccionar filas en base a los valores que estan presentes. Por ejemplo, podemos elegir todas los valores para el pais Chile:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(gapminder,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       country <span class="sc">==</span> <span class="st">"Chile"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 6
+   country continent  year lifeExp      pop gdpPercap
+   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Chile   Americas   1952    54.7  6377619     3940.
+ 2 Chile   Americas   1957    56.1  7048426     4316.
+ 3 Chile   Americas   1962    57.9  7961258     4519.
+ 4 Chile   Americas   1967    60.5  8858908     5107.
+ 5 Chile   Americas   1972    63.4  9717524     5494.
+ 6 Chile   Americas   1977    67.1 10599793     4757.
+ 7 Chile   Americas   1982    70.6 11487112     5096.
+ 8 Chile   Americas   1987    72.5 12463354     5547.
+ 9 Chile   Americas   1992    74.1 13572994     7596.
+10 Chile   Americas   1997    75.8 14599929    10118.
+11 Chile   Americas   2002    77.9 15497046    10779.
+12 Chile   Americas   2007    78.6 16284741    13172.</code></pre>
+</div>
+</div>
+<p>También podemos elegir varios paises a la vez, pasando un vector y ocupando el comando <em>%in%</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(gapminder,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>       country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chile"</span>, <span class="st">"Argentina"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 24 × 6
+   country   continent  year lifeExp      pop gdpPercap
+   &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Argentina Americas   1952    62.5 17876956     5911.
+ 2 Argentina Americas   1957    64.4 19610538     6857.
+ 3 Argentina Americas   1962    65.1 21283783     7133.
+ 4 Argentina Americas   1967    65.6 22934225     8053.
+ 5 Argentina Americas   1972    67.1 24779799     9443.
+ 6 Argentina Americas   1977    68.5 26983828    10079.
+ 7 Argentina Americas   1982    69.9 29341374     8998.
+ 8 Argentina Americas   1987    70.8 31620918     9140.
+ 9 Argentina Americas   1992    71.9 33958947     9308.
+10 Argentina Americas   1997    73.3 36203463    10967.
+# … with 14 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<p>Y podemos combinar diferentes filtros ocupando operadores booleanos. En este caso seleccionando pais y un año.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(gapminder,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>       country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chile"</span>, <span class="st">"Argentina"</span>) <span class="sc">&amp;</span> year <span class="sc">&gt;</span> <span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 6
+  country   continent  year lifeExp      pop gdpPercap
+  &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 Argentina Americas   2002    74.3 38331121     8798.
+2 Argentina Americas   2007    75.3 40301927    12779.
+3 Chile     Americas   2002    77.9 15497046    10779.
+4 Chile     Americas   2007    78.6 16284741    13172.</code></pre>
+</div>
+</div>
+</section>
+<section id="mutate" class="level3">
+<h3 class="anchored" data-anchor-id="mutate"><code>mutate</code></h3>
+<p>Asi como podemos seleccionar valores y columnas, también podemos crear nuevas columnas usando otras. Por ejemplo, calculemos el gdp para cada fila:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(gapminder,</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">gdp =</span> pop <span class="sc">*</span> gdpPercap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 7
+   country     continent  year lifeExp      pop gdpPercap          gdp
+   &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.  6567086330.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.  7585448670.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.  8758855797.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.  9648014150.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.  9678553274.
+ 6 Afghanistan Asia       1977    38.4 14880372      786. 11697659231.
+ 7 Afghanistan Asia       1982    39.9 12881816      978. 12598563401.
+ 8 Afghanistan Asia       1987    40.8 13867957      852. 11820990309.
+ 9 Afghanistan Asia       1992    41.7 16317921      649. 10595901589.
+10 Afghanistan Asia       1997    41.8 22227415      635. 14121995875.
+# … with 1,694 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<p>En este caso creamos una nueva columna llamada <em>gdp</em> , la cual es el resultado de la multiplicacion de las columnas <em>pop</em> (población) y <em>gdpPercap</em> (el gdp per capita).</p>
+</section>
+<section id="combinando-multiples-funciones" class="level3">
+<h3 class="anchored" data-anchor-id="combinando-multiples-funciones">Combinando multiples funciones</h3>
+<p>Podemos combinar diferentes funciones en un mismo pipeline ocupando el comando <em>%&gt;%</em> para concatenar diferentes pasos. Asi, podemos combinar varias funciones. En este caso lo que vamos a hacer es tomar la tabla <em>gapminder</em>, aplicar un filtro, luego calcular una nueva columna y finalmente seleccionar columnas de interes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">gdp =</span> pop <span class="sc">*</span> gdpPercap) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(country, year, gdp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 284 × 3
+   country      year           gdp
+   &lt;chr&gt;       &lt;dbl&gt;         &lt;dbl&gt;
+ 1 Afghanistan  2002  18363410424.
+ 2 Afghanistan  2007  31079291949.
+ 3 Albania      2002  16153932130.
+ 4 Albania      2007  21376411360.
+ 5 Algeria      2002 165447670333.
+ 6 Algeria      2007 207444851958.
+ 7 Angola       2002  30134833901.
+ 8 Angola       2007  59583895818.
+ 9 Argentina    2002 337223430800.
+10 Argentina    2007 515033625357.
+# … with 274 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Curso desarrollado por Juan A. Ugalde, 2022</div>   
+    <div class="nav-footer-right">Desarrollado en <i class="fa-brands fa-r-project" aria-hidden="true"></i> y <a href="https://quarto.org">Quarto</a><br> <a href="https://github.com/microbialds/2022-DataR">Código disponible en <i class="fa-brands fa-github" aria-hidden="true"></i> Github</a></div>
+  </div>
+</footer>
+
+
+
+</body></html>
