@@ -3,3 +3,83 @@ title: "Organizando los datos (Tidydata)"
 ---
 
 # Introducción
+
+Uno de los conceptos claves en el Tidyverse tiene que ver con la estructura de los datos que vamos a analizar, lo que se ha denominado *Tidy Data*. El poder estructurar los datos de esta forma nos permite trabajar de manera consistente con las librerias del Tidyverse y construir codigo que sea flexible, reproducible y ordenado. 
+
+La estructura de los datos consiste en que cada variable (o feature) tiene su propia columna. Cada observación esta en una fila, y cada celda contiene un solo valor o medición.
+
+![Figura de (https://r4ds.had.co.nz/tidy-data.html)](figuras/tidy-data-wickham.png)
+
+En esta clase, vamos a explorar algunas tablas y ordenarlas para que tengan el formato necesario. Para ello vamos a ocupar el paquete `tidyr` (que es parte del `tidyverse`), el cual tiene algunas tablas de ejemplo.
+
+## Tablas a utilizar
+
+Primero que nada, como hemos hecho en las clases anteriores, vamos a cargar en nuestro script la libreria `tidyverse`.
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+Vamos a ocupar varias tablas que son parte de esta libreria y que van a servir de ejemplo. Las tablas: _table1_, _table2_, _table3_, _table4a_, _table4b_, _table5_.
+
+El ejemplo de tabla idea, que tiene la estructura necesaria, es _table1_
+
+```{r}
+table1
+```
+
+## Ordenando tablas
+
+### `pivot_wider`
+
+El primer comando que vamos a mirar es `pivot_wider`. Para entender bien lo que hace, veamos primero _table2_.
+
+```{r}
+table2
+```
+
+Vemos que esta tabla esta organizada, pero no de la manera "tidy". En este caso la columna _type_ no es un caracteristica de los paises, si no que los resultados reales estan en la columnna count. Para poder convertir esta tabla en el formato necesario, tenemos que expandirla. Esto lo podemos hacer con `pivot_wider`.
+
+A la función `pivot_wider` le pasamos dos opciones:
+
+- _names_from_: indica la columna desde donde vamos a sacar los nombres de las nuevas columnas.
+- _values_from_: indica de donde vienen los valores para cada una de las nuevas columnas.
+
+```{r}
+table2 %>%
+    pivot_wider(names_from = type,
+                values_from = count)
+```
+
+
+### `separate`
+
+Veamos ahora la tabla 3
+
+```{r}
+table3
+```
+
+Vemos que esta tabla incluye en la columa _rate_ el valor de los casos y la poblacion como un caracter (ej: 745/19987071). Para poder crear las nuevas columnas, lo que tenemos que hacer es crear nuevas columas en base a la existente, separando por el caracter */*. Para eso podemos ocupar la función `separate`. Esta función ocupa:
+
+- la columna a separar
+- _into_ : un vector con los nombres de las columnas.
+- _sep_ : el caracter con el que vamos a separar
+
+```{r}
+table3 %>%
+    separate(rate, into=c("cases", "population"),
+             sep="/") %>%
+    mutate(cases = parse_number(cases),
+           population = parse_number(population),
+           rate = cases/population)
+```
+
+En este caso ademas tenemos que usar `mutate`, porque lo que genera la separación son columnas en donde los valores se consideran caracteres. Asi que tenemos que convertir las columnas en numeros, usando la función `parse_number`.
+
+### `left_join`
+
+### `unite`
+
+### Todo junto!
