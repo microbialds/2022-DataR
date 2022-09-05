@@ -3,6 +3,7 @@ title: "Workflow de análisis"
 ---
 
 # Introducción
+
 En esta segunda clase, vamos a empezar el análisis con Tidyverse. Primero vamos a recordar como crear y establecer los directorios de trabajo. Luego vamos a explorar diferentes formas de leer datos desde diferentes tipos de tablas.
 
 ## Establecer directorio de trabajo
@@ -15,9 +16,7 @@ getwd()
 
 Para poder establecer el directorio de trabajo lo podemos hacer desde la interfaz de RStudio como vimos durante la clase, o tambien ocupando el comando `setwd()`. Por ejemplo:
 
-```
-setwd("/directorio/de/trabajo/")
-```
+    setwd("/directorio/de/trabajo/")
 
 Mas detalles los iremos viendo durtante la clase
 
@@ -52,6 +51,7 @@ En númerosas ocasiones nos vamos a encontrar con que los archivos que necesitam
 gapminder2 <- read_csv("datos/gapminder_csv2.csv")
 gapminder2
 ```
+
 En este caso, vemos que al leer esta tabla, queda en una sola columna. Esto se debe a que la separación de las columnas no es con comas, si no que un caracter diferente (en este caso punto y coma). Para poder leer la tabla, tenemos que ocupar otro comando en donde definimos el tipo de delimitador que separa a las columnas. En este caso ocupamos la función `read_delim`:
 
 ```{r}
@@ -91,24 +91,18 @@ Una vez que tenemos la información en R, podemos ocupar diferentes funciones pa
 gapminder
 ```
 
-Vemos que esta tabla tiene 6 columnas:
-- country
-- continent
-- year
-- lifeExp
-- pop
-- gdpPercap
+Vemos que esta tabla tiene 6 columnas: - country - continent - year - lifeExp - pop - gdpPercap
 
 ### `select`
 
-Si quisieramos elegir algunas columnas desde la tabla completa, podemos ocupar la función `select`. En este caso indicamos a la función la fuente de los datos ( _gapminder_ ) y las columnas a elegir (country, year, pop)
+Si quisieramos elegir algunas columnas desde la tabla completa, podemos ocupar la función `select`. En este caso indicamos a la función la fuente de los datos ( *gapminder* ) y las columnas a elegir (country, year, pop)
 
 ```{r}
 select(gapminder,
        country, year, pop)
 ```
 
-También podemos elegir columnas en base a los nombres de estas. Por ejemplo seleccionar todas las columnas que parten con la letra _c_:
+También podemos elegir columnas en base a los nombres de estas. Por ejemplo seleccionar todas las columnas que parten con la letra *c*:
 
 ```{r}
 select(gapminder, starts_with("c"))
@@ -123,7 +117,7 @@ filter(gapminder,
        country == "Chile")
 ```
 
-También podemos elegir varios paises a la vez, pasando un vector y ocupando el comando _%in%_:
+También podemos elegir varios paises a la vez, pasando un vector y ocupando el comando *%in%*:
 
 ```{r}
 filter(gapminder,
@@ -146,11 +140,11 @@ mutate(gapminder,
        gdp = pop * gdpPercap)
 ```
 
-En este caso creamos una nueva columna llamada _gdp_ , la cual es el resultado de la multiplicacion de las columnas _pop_ (población) y _gdpPercap_ (el gdp per capita).
+En este caso creamos una nueva columna llamada *gdp* , la cual es el resultado de la multiplicacion de las columnas *pop* (población) y *gdpPercap* (el gdp per capita).
 
 ### Combinando multiples funciones
 
-Podemos combinar diferentes funciones en un mismo pipeline ocupando el comando _%>%_ para concatenar diferentes pasos. Asi, podemos combinar varias funciones. En este caso lo que vamos a hacer es tomar la tabla _gapminder_, aplicar un filtro, luego calcular una nueva columna y finalmente seleccionar columnas de interes:
+Podemos combinar diferentes funciones en un mismo pipeline ocupando el comando *%\>%* para concatenar diferentes pasos. Asi, podemos combinar varias funciones. En este caso lo que vamos a hacer es tomar la tabla *gapminder*, aplicar un filtro, luego calcular una nueva columna y finalmente seleccionar columnas de interes:
 
 ```{r}
 gapminder %>%
@@ -160,4 +154,38 @@ gapminder %>%
 
 ```
 
+Al igual que veamis anteriormente, podemos tambien asignar los resultados de los análisis a una nueva variable, guardando asi los resultados. Por ejemplo:
+
+```{r}
+gdp_2000 <- gapminder %>%
+    filter(year > 2000) %>%
+    mutate(gdp = pop * gdpPercap) %>%
+    select(country, year, gdp)
+gdp_2000
+```
+
+### `group_by` y `summarise`
+
+Una operación común que vamos a querar hacer con una tabla es calcular estadisticas. Por ejemplo, el promedio de ciertas columnas o aun mas, agrupar por caracteristicas y luego calcular el promedio. Esto lo podemos hacer utilizando el comando `group_by`, el cual nos permite agrupar los resultados de una tabla en función de los valores de una o mas columnas. Esto lo podemos combinar con `summarise`, para calcular valores en base al resultado de esa agrupación. Por ejemplo, calculemos el promedio (`mean`) y la desviación estandar (`sd`) de las poblaciones por continente:
+
+```{r}
+pop_continent_2007 <- gapminder %>%
+    filter(year == 2007)  %>%
+    group_by(continent) %>%
+    summarise(pop_promedio = mean(pop),
+              pop_dev = sd(pop),
+              gdp_promedio = mean(gdpPercap))
+
+pop_continent_2007
+```
+
+El comando `summarise` entrega una nueva tabla resumida. Si solo queremos agregar una nueva columna en base al resultado del agrupamiento, podemos ocupar `mutate`. Por ejemplo:
+
+```{r}
+pctPop_table <- gapminder %>%
+    group_by(continent, year) %>%
+    mutate(pctPop = pop / sum(pop) * 100)
+
+pctPop_table
+```
 

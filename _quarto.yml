@@ -32,6 +32,8 @@ website:
               file: clases/01-intro.qmd
             - text: "2: Introducción a Tidyverse, flujo de trabajo"
               file: clases/02-Tidyverse1.qmd
+            - text: "3: Organizando los datos (Tidydata)"
+              file: clases/03-Tidydata.qmd
               
   page-footer:
     left: |
