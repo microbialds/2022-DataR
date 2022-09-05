@@ -202,6 +202,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../clases/02-Tidyverse1.html" class="sidebar-item-text sidebar-link active">2: Introducción a Tidyverse, flujo de trabajo</a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../clases/03-Tidydata.html" class="sidebar-item-text sidebar-link">3: Organizando los datos (Tidydata)</a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -227,6 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><code>filter</code></a></li>
   <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate"><code>mutate</code></a></li>
   <li><a href="#combinando-multiples-funciones" id="toc-combinando-multiples-funciones" class="nav-link" data-scroll-target="#combinando-multiples-funciones">Combinando multiples funciones</a></li>
+  <li><a href="#group_by-y-summarise" id="toc-group_by-y-summarise" class="nav-link" data-scroll-target="#group_by-y-summarise"><code>group_by</code> y <code>summarise</code></a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -585,6 +591,81 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  9 Argentina    2002 337223430800.
 10 Argentina    2007 515033625357.
 # … with 274 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<p>Al igual que veamis anteriormente, podemos tambien asignar los resultados de los análisis a una nueva variable, guardando asi los resultados. Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>gdp_2000 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">gdp =</span> pop <span class="sc">*</span> gdpPercap) <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(country, year, gdp)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>gdp_2000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 284 × 3
+   country      year           gdp
+   &lt;chr&gt;       &lt;dbl&gt;         &lt;dbl&gt;
+ 1 Afghanistan  2002  18363410424.
+ 2 Afghanistan  2007  31079291949.
+ 3 Albania      2002  16153932130.
+ 4 Albania      2007  21376411360.
+ 5 Algeria      2002 165447670333.
+ 6 Algeria      2007 207444851958.
+ 7 Angola       2002  30134833901.
+ 8 Angola       2007  59583895818.
+ 9 Argentina    2002 337223430800.
+10 Argentina    2007 515033625357.
+# … with 274 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="group_by-y-summarise" class="level3">
+<h3 class="anchored" data-anchor-id="group_by-y-summarise"><code>group_by</code> y <code>summarise</code></h3>
+<p>Una operación común que vamos a querar hacer con una tabla es calcular estadisticas. Por ejemplo, el promedio de ciertas columnas o aun mas, agrupar por caracteristicas y luego calcular el promedio. Esto lo podemos hacer utilizando el comando <code>group_by</code>, el cual nos permite agrupar los resultados de una tabla en función de los valores de una o mas columnas. Esto lo podemos combinar con <code>summarise</code>, para calcular valores en base al resultado de esa agrupación. Por ejemplo, calculemos el promedio (<code>mean</code>) y la desviación estandar (<code>sd</code>) de las poblaciones por continente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>pop_continent_2007 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">pop_promedio =</span> <span class="fu">mean</span>(pop),</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">pop_dev =</span> <span class="fu">sd</span>(pop),</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">gdp_promedio =</span> <span class="fu">mean</span>(gdpPercap))</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>pop_continent_2007</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  continent pop_promedio    pop_dev gdp_promedio
+  &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;
+1 Africa       17875763.  24917726.        3089.
+2 Americas     35954847.  68833781.       11003.
+3 Asia        115513752. 289673399.       12473.
+4 Europe       19536618.  23624744.       25054.
+5 Oceania      12274974.  11538855.       29810.</code></pre>
+</div>
+</div>
+<p>El comando <code>summarise</code> entrega una nueva tabla resumida. Si solo queremos agregar una nueva columna en base al resultado del agrupamiento, podemos ocupar <code>mutate</code>. Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>pctPop_table <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent, year) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">pctPop =</span> pop <span class="sc">/</span> <span class="fu">sum</span>(pop) <span class="sc">*</span> <span class="dv">100</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>pctPop_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 7
+# Groups:   continent, year [60]
+   country     continent  year lifeExp      pop gdpPercap pctPop
+   &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.  0.604
+ 2 Afghanistan Asia       1957    30.3  9240934      821.  0.591
+ 3 Afghanistan Asia       1962    32.0 10267083      853.  0.605
+ 4 Afghanistan Asia       1967    34.0 11537966      836.  0.605
+ 5 Afghanistan Asia       1972    36.1 13079460      740.  0.608
+ 6 Afghanistan Asia       1977    38.4 14880372      786.  0.624
+ 7 Afghanistan Asia       1982    39.9 12881816      978.  0.494
+ 8 Afghanistan Asia       1987    40.8 13867957      852.  0.483
+ 9 Afghanistan Asia       1992    41.7 16317921      649.  0.521
+10 Afghanistan Asia       1997    41.8 22227415      635.  0.657
+# … with 1,694 more rows
 # ℹ Use `print(n = ...)` to see more rows</code></pre>
 </div>
 </div>
