@@ -1,0 +1,163 @@
+---
+title: "Workflow de análisis"
+---
+
+# Introducción
+En esta segunda clase, vamos a empezar el análisis con Tidyverse. Primero vamos a recordar como crear y establecer los directorios de trabajo. Luego vamos a explorar diferentes formas de leer datos desde diferentes tipos de tablas.
+
+## Establecer directorio de trabajo
+
+Como vimos durante la clase, necesitamos que R sepa en que directorio vamos a trabajar. Por ejemplo, si creamos un nuevo script, para saber en donde va a quedar guardado y además el directorio de trabajo, podemos ocupar el comando `getwd()`. Esto nos entrega el directrio de trabajo. Por ejemplo en mi caso es:
+
+```{r}
+getwd()
+```
+
+Para poder establecer el directorio de trabajo lo podemos hacer desde la interfaz de RStudio como vimos durante la clase, o tambien ocupando el comando `setwd()`. Por ejemplo:
+
+```
+setwd("/directorio/de/trabajo/")
+```
+
+Mas detalles los iremos viendo durtante la clase
+
+## Leer datos en diferentes formatos
+
+En esta sección vamos a ver como leer archivos y algunas operaciones básicas usando la libreria `Tidyverse`. Recuerda que antes de utilizar esta libreria hay que llamarla en el script o comandos previamente:
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+### Importar un archivo separado por comas (CSV)
+
+Los archivos CSV son archivos en donde cada columna esta separada por comas. Para poder leer este tipo de archivos, la libreria `readr` (que es parte del `Tidyverse`), tiene una función llamada `read_csv`. Por ejemplo:
+
+```{r}
+#| message: false
+# Este comando va a leer un archivo csv y guardarlo en la variable gapminder
+gapminder <- read_csv("datos/gapminder.csv")
+gapminder
+```
+
+En este caso vemos que el archivo fue leido correctamente y consiste en 1704 observaciones en 6 columnas.
+
+### Importar archivos con diferentes formatos
+
+En númerosas ocasiones nos vamos a encontrar con que los archivos que necesitamos leer, no vienen en el formato adecuado. Por ejemplo, si tratamos de leer este archivo con el comando `read_csv` nos damos cuenta que tenemos problemas:
+
+```{r}
+#| message: false
+gapminder2 <- read_csv("datos/gapminder_csv2.csv")
+gapminder2
+```
+En este caso, vemos que al leer esta tabla, queda en una sola columna. Esto se debe a que la separación de las columnas no es con comas, si no que un caracter diferente (en este caso punto y coma). Para poder leer la tabla, tenemos que ocupar otro comando en donde definimos el tipo de delimitador que separa a las columnas. En este caso ocupamos la función `read_delim`:
+
+```{r}
+#| message: false
+gapminder2_fixed <- read_delim(
+    "datos/gapminder_csv2.csv",
+    delim = ";"
+)
+gapminder2_fixed
+```
+
+En otros casos, el formato de la tabla puede ser el adecuado, pero el archivo mismo incluir información que queremos ignorar al momento de importar los datos en R. Por ejemplo:
+
+```{r}
+#| message: false
+gapminder3 <- read_csv("datos/gapminder_messier.csv")
+gapminder3
+```
+
+En este caso, R entrega un mensaje de aviso, porque hay columna que no tienen el formato adecuado. Al ver el resultado, vemos que las dos primeras lineas contienen información como texto, pero no son parte de las columnas. En este caso podemos ignorar esas dos primeras filas al momento de leer el archivo:
+
+```{r}
+#| message: false
+gapminder3_fixed <- read_delim(
+    "datos/gapminder_messier.csv",
+    skip=2,
+    delim = ","
+)
+gapminder3_fixed
+```
+
+## Manipulación de tablas
+
+Una vez que tenemos la información en R, podemos ocupar diferentes funciones para explorar estos datos. Vamos usar la tabla gapminder
+
+```{r}
+gapminder
+```
+
+Vemos que esta tabla tiene 6 columnas:
+- country
+- continent
+- year
+- lifeExp
+- pop
+- gdpPercap
+
+### `select`
+
+Si quisieramos elegir algunas columnas desde la tabla completa, podemos ocupar la función `select`. En este caso indicamos a la función la fuente de los datos ( _gapminder_ ) y las columnas a elegir (country, year, pop)
+
+```{r}
+select(gapminder,
+       country, year, pop)
+```
+
+También podemos elegir columnas en base a los nombres de estas. Por ejemplo seleccionar todas las columnas que parten con la letra _c_:
+
+```{r}
+select(gapminder, starts_with("c"))
+```
+
+### `filter`
+
+Asi como `select` nos permite seleccionar columnas en base a los nombres, con el comando `filter` podemos seleccionar filas en base a los valores que estan presentes. Por ejemplo, podemos elegir todas los valores para el pais Chile:
+
+```{r}
+filter(gapminder,
+       country == "Chile")
+```
+
+También podemos elegir varios paises a la vez, pasando un vector y ocupando el comando _%in%_:
+
+```{r}
+filter(gapminder,
+       country %in% c("Chile", "Argentina"))
+```
+
+Y podemos combinar diferentes filtros ocupando operadores booleanos. En este caso seleccionando pais y un año.
+
+```{r}
+filter(gapminder,
+       country %in% c("Chile", "Argentina") & year > 2000)
+```
+
+### `mutate`
+
+Asi como podemos seleccionar valores y columnas, también podemos crear nuevas columnas usando otras. Por ejemplo, calculemos el gdp para cada fila:
+
+```{r}
+mutate(gapminder,
+       gdp = pop * gdpPercap)
+```
+
+En este caso creamos una nueva columna llamada _gdp_ , la cual es el resultado de la multiplicacion de las columnas _pop_ (población) y _gdpPercap_ (el gdp per capita).
+
+### Combinando multiples funciones
+
+Podemos combinar diferentes funciones en un mismo pipeline ocupando el comando _%>%_ para concatenar diferentes pasos. Asi, podemos combinar varias funciones. En este caso lo que vamos a hacer es tomar la tabla _gapminder_, aplicar un filtro, luego calcular una nueva columna y finalmente seleccionar columnas de interes:
+
+```{r}
+gapminder %>%
+    filter(year > 2000) %>%
+    mutate(gdp = pop * gdpPercap) %>%
+    select(country, year, gdp)
+
+```
+
+

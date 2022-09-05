@@ -4,7 +4,7 @@ title: "Introducción a R"
 
 En esta primera clase, vamos a explorar brevemente el lenguaje de programación `R`, conocer algunas de sus características y generar una visualización a partir de una tabla!
 
-# Introducción 
+# Introducción
 
 ## Ejecutando comandos en R
 
@@ -180,11 +180,11 @@ library(tidyverse)
 library(palmerpenguins)
 ```
 
-Esto va a llamar a la libreria _tidyverse_ y un paquete de datos llamado _palmerpenguins_ el cual contiene datos que vamos a utilizar para visualizar.
+Esto va a llamar a la libreria *tidyverse* y un paquete de datos llamado *palmerpenguins* el cual contiene datos que vamos a utilizar para visualizar.
 
 ## Exploración inicial de los datos
 
-Vamos a llamar a una tabla llamada _penguins_ y asignarla a una variable.
+Vamos a llamar a una tabla llamada *penguins* y asignarla a una variable.
 
 ```{r}
 tabla_pinguinos <- penguins
@@ -198,9 +198,10 @@ tabla_pinguinos
 
 ## Construir un gráfico
 
-El paquete que vamos a utilizar para visualizar se llama _ggplot_, el cual es parte de _tidyverse_. Así que ya esta instalado cuando hicimos la llamada a la libreria _tidyverse_ al inicio.
+El paquete que vamos a utilizar para visualizar se llama *ggplot*, el cual es parte de *tidyverse*. Así que ya esta instalado cuando hicimos la llamada a la libreria *tidyverse* al inicio.
 
 ### Gráfico inicial
+
 Primero vamos a construir un gráfico en el cual vamos a visualizar el largo de la aleta versus el largo del pico del pinguino.
 
 ```{r}
@@ -214,13 +215,13 @@ geom_point()
 
 En este comando lo que estamos haciendo es:
 
-- definir los datos a usar en `data = tabla_pinguinos`
-- definir la estetica (aesthetics) del grafico, en este caso el eje X y el eje Y, que son columnas de la tabla: `aes(x=flipper_length_mm, y=bill_length_mm)` 
-- definir que queremos hacer con los datos. En este caso, dibujar puntos: `geom_point()`
+-   definir los datos a usar en `data = tabla_pinguinos`
+-   definir la estetica (aesthetics) del grafico, en este caso el eje X y el eje Y, que son columnas de la tabla: `aes(x=flipper_length_mm, y=bill_length_mm)`
+-   definir que queremos hacer con los datos. En este caso, dibujar puntos: `geom_point()`
 
 ### Agregar color y formas
 
-Como podemos diferencias variables dentro de nuestras columnas. Agregando en la opciones de estética del gráfico dos nuevas variables: `color=species, shape=sex`. En este caso, asignamos color en base a los elementos distintos de la columna _species_ y forma de los puntos en base a la columna _sex_. Así, el código queda:
+Como podemos diferencias variables dentro de nuestras columnas. Agregando en la opciones de estética del gráfico dos nuevas variables: `color=species, shape=sex`. En este caso, asignamos color en base a los elementos distintos de la columna *species* y forma de los puntos en base a la columna *sex*. Así, el código queda:
 
 ```{r}
 ggplot(data = tabla_pinguinos,
@@ -235,9 +236,9 @@ geom_point()
 
 ### Cambiar color y diseño
 
-Ya tenemos un gráfico inicial que muestra la comparación que nos interesa y ahora podemos editar para que se vea un poco mejor y no con los colores y diseño por defecto de R. Esto lo podemos hacer modificando el _theme_ del gráfico. Mas adelante vamos a ver el detalle de como modificar diferentes componentes, pero por ahora podemos hacer un cambio general agregando el comando `theme_minimal()`.
+Ya tenemos un gráfico inicial que muestra la comparación que nos interesa y ahora podemos editar para que se vea un poco mejor y no con los colores y diseño por defecto de R. Esto lo podemos hacer modificando el *theme* del gráfico. Mas adelante vamos a ver el detalle de como modificar diferentes componentes, pero por ahora podemos hacer un cambio general agregando el comando `theme_minimal()`.
 
-En los colores, también los podemos modificar a gusto. Por el momento vamos a utilizar una paleta de colores diferente con el comando `scale_color_brewer(type = "qual")`. En este caso le pasamos como parametro al comando _scale_color_brewer_ la opción type = "qual". Con esto definimos que la escala de colores es cualitativa (versus una escala cuantitativa).
+En los colores, también los podemos modificar a gusto. Por el momento vamos a utilizar una paleta de colores diferente con el comando `scale_color_brewer(type = "qual")`. En este caso le pasamos como parametro al comando *scale_color_brewer* la opción type = "qual". Con esto definimos que la escala de colores es cualitativa (versus una escala cuantitativa).
 
 Así el comando nos queda ahora como:
 
@@ -261,13 +262,11 @@ Finalmente, vamos a cambiar el texto que describe los ejes X e Y, y agregar algo
 
 Esto lo vamos a hacer agregando el comando `labs` y definiendo las diferentes opciones:
 
-```
-labs(x="Flipper length (mm)",
-     y="Bill length (mm)",
-     title = "Penguin data comparison",
-     subtitle = "Comparison between flipper length and bill length in a penguin population",
-     caption = "Data obtained from the package palmerpenguins"
-```
+    labs(x="Flipper length (mm)",
+         y="Bill length (mm)",
+         title = "Penguin data comparison",
+         subtitle = "Comparison between flipper length and bill length in a penguin population",
+         caption = "Data obtained from the package palmerpenguins"
 
 Y podemos agregarlo al gráfico.
 
@@ -288,8 +287,7 @@ labs(x="Flipper length (mm)",
      caption = "Data obtained from the package palmerpenguins")
 ```
 
-
 # Lecturas recomendadas
 
 1.  Best practices for Writing R Code: [link](https://swcarpentry.github.io/r-novice-inflammation/06-best-practices-R/)
-2. R for Data Science: [link](https://r4ds.had.co.nz)
+2.  R for Data Science: [link](https://r4ds.had.co.nz)

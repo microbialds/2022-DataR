@@ -30,6 +30,8 @@ website:
           contents:
             - text: "1: Introducción a R"
               file: clases/01-intro.qmd
+            - text: "2: Introducción a Tidyverse, flujo de trabajo"
+              file: clases/02-Tidyverse1.qmd
               
   page-footer:
     left: |
