@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://microbialds.github.io/2022_DBio_Data/clases/index.html</loc>
-    <lastmod>2022-09-05T19:03:41.358Z</lastmod>
-  </url>
-  <url>
-    <loc>https://microbialds.github.io/2022_DBio_Data/clases/03-Tidydata.html</loc>
-    <lastmod>2022-09-05T19:03:42.562Z</lastmod>
-  </url>
-  <url>
-    <loc>https://microbialds.github.io/2022_DBio_Data/clases/01-intro.html</loc>
-    <lastmod>2022-09-05T19:03:43.490Z</lastmod>
-  </url>
-  <url>
-    <loc>https://microbialds.github.io/2022_DBio_Data/clases/02-Tidyverse1.html</loc>
-    <lastmod>2022-09-05T19:03:44.382Z</lastmod>
-  </url>
-  <url>
-    <loc>https://microbialds.github.io/2022_DBio_Data/about.html</loc>
-    <lastmod>2022-09-05T19:03:45.010Z</lastmod>
-  </url>
-  <url>
     <loc>https://microbialds.github.io/2022_DBio_Data/syllabus.html</loc>
-    <lastmod>2022-09-05T19:03:45.378Z</lastmod>
+    <lastmod>2022-10-20T02:02:49.440Z</lastmod>
   </url>
   <url>
     <loc>https://microbialds.github.io/2022_DBio_Data/index.html</loc>
-    <lastmod>2022-09-05T19:03:45.786Z</lastmod>
+    <lastmod>2022-10-20T02:02:50.280Z</lastmod>
+  </url>
+  <url>
+    <loc>https://microbialds.github.io/2022_DBio_Data/about.html</loc>
+    <lastmod>2022-10-20T02:02:50.912Z</lastmod>
   </url>
   <url>
     <loc>https://microbialds.github.io/2022_DBio_Data/tareas/index.html</loc>
-    <lastmod>2022-09-05T19:03:46.170Z</lastmod>
+    <lastmod>2022-10-20T02:02:51.336Z</lastmod>
+  </url>
+  <url>
+    <loc>https://microbialds.github.io/2022_DBio_Data/clases/02-Tidyverse1.html</loc>
+    <lastmod>2022-10-20T02:02:52.148Z</lastmod>
+  </url>
+  <url>
+    <loc>https://microbialds.github.io/2022_DBio_Data/clases/03-Tidydata.html</loc>
+    <lastmod>2022-10-20T02:02:52.820Z</lastmod>
+  </url>
+  <url>
+    <loc>https://microbialds.github.io/2022_DBio_Data/clases/index.html</loc>
+    <lastmod>2022-10-20T02:02:53.248Z</lastmod>
+  </url>
+  <url>
+    <loc>https://microbialds.github.io/2022_DBio_Data/clases/01-intro.html</loc>
+    <lastmod>2022-10-20T02:02:54.104Z</lastmod>
   </url>
 </urlset>
